@@ -24,6 +24,7 @@ class HomeWidget extends StatefulWidget {
 class _HomeWidgetState extends State<HomeWidget> {
   var refreshKey = GlobalKey<RefreshIndicatorState>();
 
+  final _saved = Set<RedditChildModel>();
   Future<List<RedditChildModel>> _listFuture;
 
   @override
@@ -89,6 +90,8 @@ class _HomeWidgetState extends State<HomeWidget> {
     return new ListView.builder(
       itemCount: values.length,
       itemBuilder: (BuildContext context, int index) {
+        final alreadySaved = _saved.contains(values[index]);
+
         // should cache the image into the cached network
         CachedNetworkImage(
           imageUrl: values[index].data.preview.images[0].source.url,
@@ -101,6 +104,11 @@ class _HomeWidgetState extends State<HomeWidget> {
           children: <Widget>[
             new ListTile(
               title: new Text(values[index].data.title),
+              trailing: Icon(
+                // NEW from here...
+                alreadySaved ? Icons.favorite : Icons.favorite_border,
+                color: alreadySaved ? Colors.red : null,
+              ),
             ),
             new ConstrainedBox(
               constraints: new BoxConstraints(

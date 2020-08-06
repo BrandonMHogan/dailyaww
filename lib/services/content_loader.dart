@@ -16,6 +16,10 @@ class ContentLoader {
     String json = response.body;
 
     RedditModel model = RedditModel.fromJson(jsonDecode(json));
+
+    // strips out any children that have a null preview.
+    model.data.children.removeWhere((child) => child.data.preview == null);
+
     return model.data.children;
   }
 }

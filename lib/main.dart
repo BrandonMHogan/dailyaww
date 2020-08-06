@@ -1,5 +1,4 @@
 import 'package:dailyaww/features/home.dart';
-import 'package:dailyaww/features/settings/settings.dart';
 import 'package:flutter/material.dart';
 
 void main() {

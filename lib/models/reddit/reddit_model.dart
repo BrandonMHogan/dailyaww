@@ -1,4 +1,3 @@
-import 'package:dailyaww/models/reddit/reddit_child_model.dart';
 import 'package:dailyaww/models/reddit/reddit_data_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
