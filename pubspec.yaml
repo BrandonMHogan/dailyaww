@@ -31,6 +31,8 @@ dependencies:
   http: ^0.12.0+4
   json_annotation: ^3.0.1
   cached_network_image: ^2.2.0+1
+  provider: ^4.3.1
+  intl: ^0.16.1 #https://pub.dev/packages/intl
   english_words: ^3.1.5
 
 dev_dependencies:

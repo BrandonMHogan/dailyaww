@@ -5,10 +5,12 @@ part 'reddit_child_data_model.g.dart';
 
 @JsonSerializable()
 class RedditChildDataModel {
+  final String id;
   final String title;
+  final double created;
   final RedditPreviewModel preview;
 
-  RedditChildDataModel({this.title, this.preview});
+  RedditChildDataModel({this.id, this.title, this.created, this.preview});
 
   factory RedditChildDataModel.fromJson(Map<String, dynamic> json) =>
       _$RedditChildDataModelFromJson(json);
