@@ -1,4 +1,5 @@
 import 'package:dailyaww/common/theme.dart';
+import 'package:dailyaww/features/detail/detail_widget.dart';
 import 'package:dailyaww/features/home/home.dart';
 import 'package:dailyaww/features/settings/settings.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => HomeWidget(),
-        '/settings': (context) => SettingsWidget(),
+        '/detail': (context) => DetailWidget(),
       },
     );
   }

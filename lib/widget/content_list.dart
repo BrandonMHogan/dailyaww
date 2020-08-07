@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dailyaww/common/theme.dart';
+import 'package:dailyaww/features/detail/detail_widget.dart';
 import 'package:dailyaww/features/home/home_viewmodel.dart';
 import 'package:dailyaww/features/shared/content_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +84,10 @@ class _ContentListWidgetState extends State<ContentList> {
                   trailing: Icon(Icons.favorite),
                 ),
                 new Flexible(
+                    child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/detail', arguments: item);
+                  },
                   child: CachedNetworkImage(
                     imageUrl: item.preview,
                     progressIndicatorBuilder:
@@ -91,7 +96,7 @@ class _ContentListWidgetState extends State<ContentList> {
                                 value: downloadProgress.progress),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
-                ),
+                )),
                 Padding(padding: const EdgeInsets.all(3.0))
               ],
             ),
