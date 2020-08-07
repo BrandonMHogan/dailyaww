@@ -38,4 +38,20 @@ class ContentViewModel {
   bool get isVideo {
     return this.content.isVideo;
   }
+
+  bool get isGif {
+    return this.content.isGif;
+  }
+
+  String get videoUrl {
+    return this.content.videoUrl;
+  }
+
+  int get videoWidth {
+    return this.content.videoWidth;
+  }
+
+  int get videoHeight {
+    return this.content.videoHeight;
+  }
 }

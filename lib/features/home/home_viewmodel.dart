@@ -1,6 +1,6 @@
 import 'package:dailyaww/features/shared/content_viewmodel.dart';
 import 'package:dailyaww/models/content.dart';
-import 'package:dailyaww/services/content_loader.dart';
+import 'package:dailyaww/services/web_service.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewModel extends ChangeNotifier {
@@ -9,7 +9,7 @@ class HomeViewModel extends ChangeNotifier {
   Future<void> fetchReddit(
       {String subreddit, String flavour, String limit}) async {
     List<Content> results = List<Content>();
-    ContentLoader loader = new ContentLoader();
+    WebService loader = new WebService();
     // awaits for the reddit data to come back and adds it to the content list
     await loader.getRedditData().then((value) => results.addAll(value));
 

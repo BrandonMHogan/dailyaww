@@ -14,6 +14,8 @@ class ContentList extends StatefulWidget {
 }
 
 class _ContentListWidgetState extends State<ContentList> {
+  ScrollController _scrollController = new ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -30,24 +32,45 @@ class _ContentListWidgetState extends State<ContentList> {
         icon: Icon(Icons.refresh),
         onPressed: () {
           viewModel.refresh();
+          // scrolls back to the top of the list view and awaits the new data
+          _scrollController.animateTo(0.0,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOut);
         },
       )
     ]);
   }
 
   Widget list(content) {
+    // loads the pixel ration and screen width for image resizing
+    var pixRatio = MediaQuery.of(context).devicePixelRatio;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return ListView.builder(
+      controller: _scrollController,
       itemCount: content.length,
       itemBuilder: (context, index) {
         if (content == null) {
           return Text("No items found");
         }
 
-        final item = content[index];
+        final ContentViewModel item = content[index];
+
+        // getting screen sizes
+        final previewWidth = item.previewWidth / pixRatio;
+        final previewHeight = item.previewHeight / pixRatio;
+        final widthResizeRatio = screenWidth / previewWidth;
+        var heightResized = (previewHeight * widthResizeRatio) + 60;
+
+        if (heightResized > previewWidth) {
+          heightResized = previewWidth;
+        }
 
         return new ConstrainedBox(
           constraints: new BoxConstraints(
-            minHeight: 250.0,
+            minWidth: screenWidth,
+            minHeight: heightResized,
+            maxHeight: heightResized,
           ),
           child: Card(
             elevation: 2.5,
@@ -55,13 +78,12 @@ class _ContentListWidgetState extends State<ContentList> {
             child: Column(
               children: <Widget>[
                 ListTile(
+                  contentPadding: const EdgeInsets.all(8.0),
                   title: Text(item.title),
+                  trailing: Icon(Icons.favorite),
                 ),
-                new Container(
-                  padding: const EdgeInsets.all(8.0),
-                  alignment: Alignment.center,
+                new Flexible(
                   child: CachedNetworkImage(
-                    fit: BoxFit.fitWidth,
                     imageUrl: item.preview,
                     progressIndicatorBuilder:
                         (context, url, downloadProgress) =>
@@ -70,6 +92,7 @@ class _ContentListWidgetState extends State<ContentList> {
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
+                Padding(padding: const EdgeInsets.all(3.0))
               ],
             ),
           ),

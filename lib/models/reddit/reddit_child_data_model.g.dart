@@ -14,6 +14,10 @@ RedditChildDataModel _$RedditChildDataModelFromJson(Map<String, dynamic> json) {
     preview: json['preview'] == null
         ? null
         : RedditPreviewModel.fromJson(json['preview'] as Map<String, dynamic>),
+    media: json['secure_media'] == null
+        ? null
+        : RedditMediaModel.fromJson(
+            json['secure_media'] as Map<String, dynamic>),
   );
 }
 
@@ -24,4 +28,5 @@ Map<String, dynamic> _$RedditChildDataModelToJson(
       'title': instance.title,
       'created': instance.created,
       'preview': instance.preview,
+      'secure_media': instance.media,
     };

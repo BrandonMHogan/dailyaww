@@ -1,3 +1,4 @@
+import 'package:dailyaww/models/reddit/reddit_media_model.dart';
 import 'package:dailyaww/models/reddit/reddit_preview_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -9,8 +10,11 @@ class RedditChildDataModel {
   final String title;
   final double created;
   final RedditPreviewModel preview;
+  @JsonKey(name: 'secure_media')
+  final RedditMediaModel media;
 
-  RedditChildDataModel({this.id, this.title, this.created, this.preview});
+  RedditChildDataModel(
+      {this.id, this.title, this.created, this.preview, this.media});
 
   factory RedditChildDataModel.fromJson(Map<String, dynamic> json) =>
       _$RedditChildDataModelFromJson(json);
