@@ -77,8 +77,15 @@ class _ContentListWidgetState extends State<ContentList> {
             child: Column(
               children: <Widget>[
                 ListTile(
-                  title: Text(item.title),
-                  trailing: Icon(Icons.favorite_border),
+                  title: Text(
+                    item.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  trailing: Icon(
+                    Icons.favorite_border,
+                    color: appTheme.accent,
+                  ),
                 ),
                 new Flexible(
                     child: GestureDetector(
