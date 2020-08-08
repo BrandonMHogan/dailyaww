@@ -1,33 +1,87 @@
 import 'package:flutter/material.dart';
 
-final appTheme = ThemeData(
-  primarySwatch: Colors.deepPurple,
-  backgroundColor: Colors.black26,
-  visualDensity: VisualDensity.adaptivePlatformDensity,
-  textTheme: TextTheme(
-    headline1: TextStyle(
-      fontFamily: 'Corben',
-      fontWeight: FontWeight.w700,
-      fontSize: 24,
-      color: Colors.black,
-    ),
-  ),
-);
+// ignore: camel_case_types
+class appTheme {
+  static const primary = Colors.deepPurple;
+  static const accent = Colors.white70;
+  static const textColor = Colors.white70;
+  static const background = Colors.black87;
+  static const widgetBackground = Colors.white12;
+  static const fontFamily = 'Corben';
 
-/// The globally used scaffold for the app
+  /// Theme for generic text
+  static final textTheme = TextStyle(
+    color: textColor,
+    fontFamily: fontFamily,
+  );
+
+  /// Theme for subtext (includes ListTile)
+  static final subTextTheme = TextStyle(
+    color: textColor,
+    fontFamily: fontFamily,
+  );
+
+  /// Theme for headline items
+  static final headlineTheme = TextStyle(
+    color: textColor,
+    fontFamily: fontFamily,
+  );
+
+  /// Theme for Cards
+  static final cardTheme = CardTheme(
+    color: widgetBackground,
+    elevation: 3,
+  );
+
+  /// Global App Theme
+  static var theme = ThemeData(
+    primaryColor: primary,
+    accentColor: accent,
+    backgroundColor: background,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    cardTheme: cardTheme,
+    textTheme: TextTheme(
+      headline1: headlineTheme,
+      bodyText1: textTheme,
+      bodyText2: textTheme,
+      subtitle1: subTextTheme,
+      subtitle2: subTextTheme,
+    ),
+  );
+}
+
+/// global scaffold style
 appScaffold(Widget body,
-    {String title = "Daily Aww", List<Widget> actions, Widget actionButton}) {
+    {hideAppBar = false,
+    String title = "Daily Aww",
+    List<Widget> actions,
+    Widget actionButton,
+    BottomNavigationBar bottomNavigationBar}) {
   return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: setAppBar(title: title, actions: actions),
+      backgroundColor: appTheme.background,
+      appBar: hideAppBar ? null : setAppBar(title: title, actions: actions),
       body: body,
+      bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: actionButton);
 }
 
-/// The globally used action bar
+/// global app bar style
 setAppBar({String title = "Daily Aww", List<Widget> actions}) {
   return AppBar(
     title: Text(title),
     actions: actions,
+  );
+}
+
+/// global bottom bar style
+setBottomBar(List<BottomNavigationBarItem> items, ontap, {currentIndex = 0}) {
+  return BottomNavigationBar(
+    type: BottomNavigationBarType.fixed,
+    selectedItemColor: appTheme.accent,
+    unselectedItemColor: appTheme.accent,
+    backgroundColor: appTheme.widgetBackground,
+    items: items,
+    onTap: ontap,
+    currentIndex: currentIndex,
   );
 }
