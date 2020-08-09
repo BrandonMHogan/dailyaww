@@ -22,7 +22,10 @@ class WebService {
 
     // strips out any child that is very tiny, as they wont look good in the list view
     model.data.children.removeWhere(
-        (child) => child.data.preview.images[0].source.width <= 1000);
+        (child) => child.data.preview.images[0].source.width <= 900);
+
+    //TODO: REMOVE THIS. ONLY GOOD FOR GETTING ONLY VIDEO TYPE
+    model.data.children.removeWhere((child) => child.data.media == null);
 
     List<Content> contentList = List<Content>();
     // loops through the reddit items and converts them to content items
