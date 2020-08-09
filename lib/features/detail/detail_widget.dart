@@ -1,8 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dailyaww/common/routes.dart';
 import 'package:dailyaww/common/theme.dart';
 import 'package:dailyaww/features/shared/content_viewmodel.dart';
+import 'package:dailyaww/services/share_service.dart';
+import 'package:dailyaww/services/image_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:video_player/video_player.dart';
 
 class DetailWidget extends StatefulWidget {
@@ -17,10 +19,14 @@ class DetailWidget extends StatefulWidget {
 class _DetailWidgetState extends State<DetailWidget> {
   VideoPlayerController _controller;
 
-  void _onBottomBarTap(int index) {
-    setState(() {
-      if (index == 2) Routes.pop(context);
-    });
+  void _onBottomBarTap(int index) async {
+    if (widget.content.isVideo && index == 1)
+      Routes.pop(context);
+    else if (!widget.content.isVideo && index == 2)
+      Routes.pop(context);
+    else if (!widget.content.isVideo && index == 0) {
+      ShareService.share(widget.content.title, widget.content.preview);
+    }
   }
 
   @override
@@ -37,6 +43,30 @@ class _DetailWidgetState extends State<DetailWidget> {
             _controller.setLooping(true);
           });
         });
+    }
+  }
+
+  BottomNavigationBar setBottomNavigation() {
+    const share =
+        BottomNavigationBarItem(icon: Icon(Icons.share), title: Text("Share"));
+
+    const save = BottomNavigationBarItem(
+        icon: Icon(Icons.favorite_border), title: Text("Save"));
+
+    const back = BottomNavigationBarItem(
+        icon: Icon(Icons.arrow_back), title: Text("Back"));
+
+    if (widget.content.isVideo) {
+      return setBottomBar(const <BottomNavigationBarItem>[
+        save,
+        back,
+      ], _onBottomBarTap, currentIndex: 1);
+    } else {
+      return setBottomBar(const <BottomNavigationBarItem>[
+        share,
+        save,
+        back,
+      ], _onBottomBarTap, currentIndex: 2);
     }
   }
 
@@ -67,14 +97,7 @@ class _DetailWidgetState extends State<DetailWidget> {
             ),
           ),
           hideAppBar: true,
-          bottomNavigationBar: setBottomBar(const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(Icons.share), title: Text("Share")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border), title: Text("Save")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.arrow_back), title: Text("Back")),
-          ], _onBottomBarTap, currentIndex: 2));
+          bottomNavigationBar: setBottomNavigation());
     }
 
     // This is for images
@@ -86,12 +109,7 @@ class _DetailWidgetState extends State<DetailWidget> {
           child: Center(
             child: Hero(
               tag: widget.content.id,
-              child: CachedNetworkImage(
-                imageUrl: widget.content.preview,
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    CircularProgressIndicator(value: downloadProgress.progress),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-              ),
+              child: ImageService.cacheImage(widget.content.preview),
             ),
           ),
         ),

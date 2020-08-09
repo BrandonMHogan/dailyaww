@@ -31,9 +31,11 @@ dependencies:
   http: ^0.12.0+4
   json_annotation: ^3.0.1
   cached_network_image: ^2.2.0+1
+  flutter_cache_manager: ^1.4.1 #https://pub.dev/packages/flutter_cache_manager
   provider: ^4.3.1
   intl: ^0.16.1 #https://pub.dev/packages/intl
   video_player: ^0.10.11+2 #https://pub.dev/packages/video_player
+  esys_flutter_share: ^1.0.2 #https://pub.dev/packages/esys_flutter_share
   english_words: ^3.1.5
 
 dev_dependencies:

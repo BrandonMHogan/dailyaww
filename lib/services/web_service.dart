@@ -25,7 +25,7 @@ class WebService {
         (child) => child.data.preview.images[0].source.width <= 900);
 
     //TODO: REMOVE THIS. ONLY GOOD FOR GETTING ONLY VIDEO TYPE
-    model.data.children.removeWhere((child) => child.data.media == null);
+    //model.data.children.removeWhere((child) => child.data.media == null);
 
     List<Content> contentList = List<Content>();
     // loops through the reddit items and converts them to content items
