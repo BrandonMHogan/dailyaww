@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "315673900552",
+    "firebase_url": "https://dailyaww-927af.firebaseio.com",
+    "project_id": "dailyaww-927af",
+    "storage_bucket": "dailyaww-927af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315673900552:android:a508a1dda8e445790a03bd",
+        "android_client_info": {
+          "package_name": "com.brandonhogan.dailyaww"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315673900552-6l53n98dsdrik4k4pl9pjh2m882r84v6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAO-qSUBYKqlM_a8sZLA6n2XR4vPZSOcYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "315673900552-6l53n98dsdrik4k4pl9pjh2m882r84v6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
