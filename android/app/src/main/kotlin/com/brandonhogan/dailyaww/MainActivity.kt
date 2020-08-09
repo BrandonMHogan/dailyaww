@@ -1,4 +1,4 @@
-package com.example.dailyaww
+package com.brandonhogan.dailyaww
 
 import io.flutter.embedding.android.FlutterActivity
 

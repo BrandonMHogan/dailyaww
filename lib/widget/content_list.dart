@@ -82,7 +82,7 @@ class _ContentListWidgetState extends State<ContentList> {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  subtitle: Text(item.isVideo ? "is video" : ""),
+                  //subtitle: Text(item.isVideo ? "is video" : ""),
                   trailing: Icon(
                     Icons.favorite_border,
                     color: appTheme.accent,

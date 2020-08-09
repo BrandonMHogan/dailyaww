@@ -4,7 +4,6 @@ import 'package:dailyaww/features/shared/content_viewmodel.dart';
 import 'package:dailyaww/services/share_service.dart';
 import 'package:dailyaww/services/image_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:video_player/video_player.dart';
 
 class DetailWidget extends StatefulWidget {

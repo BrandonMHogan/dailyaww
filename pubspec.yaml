@@ -36,6 +36,7 @@ dependencies:
   intl: ^0.16.1 #https://pub.dev/packages/intl
   video_player: ^0.10.11+2 #https://pub.dev/packages/video_player
   esys_flutter_share: ^1.0.2 #https://pub.dev/packages/esys_flutter_share
+  firebase_core: ^0.4.5 #https://pub.dev/packages/firebase_core
   english_words: ^3.1.5
 
 dev_dependencies:
