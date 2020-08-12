@@ -1,5 +1,5 @@
 import 'package:dailyaww/features/home/home_viewmodel.dart';
-import 'package:dailyaww/widget/content_list.dart';
+import 'package:dailyaww/features/home/home_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +14,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     return ChangeNotifierProvider(
         create: (context) => HomeViewModel(),
         child: Consumer<HomeViewModel>(builder: (context, viewmodel, child) {
-          return ContentList();
+          return HomeList();
         }));
   }
 }

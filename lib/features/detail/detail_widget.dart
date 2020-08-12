@@ -1,6 +1,7 @@
 import 'package:dailyaww/common/routes.dart';
 import 'package:dailyaww/common/theme.dart';
 import 'package:dailyaww/features/shared/content_viewmodel.dart';
+import 'package:dailyaww/services/localizations_service.dart';
 import 'package:dailyaww/services/share_service.dart';
 import 'package:dailyaww/services/image_service.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +22,14 @@ class _DetailWidgetState extends State<DetailWidget> {
   void _onBottomBarTap(int index) async {
     if (widget.content.isVideo && index == 1)
       Routes.pop(context);
-    else if (!widget.content.isVideo && index == 2)
-      Routes.pop(context);
-    else if (!widget.content.isVideo && index == 0) {
-      ShareService.share(widget.content.title, widget.content.preview);
+    // else if (!widget.content.isVideo && index == 2)
+    //   Routes.pop(context);
+    else if (index == 0) {
+      if (widget.content.isVideo)
+        ShareService.share(widget.content.title, widget.content.videoUrl,
+            isVideo: true);
+      else
+        ShareService.share(widget.content.title, widget.content.preview);
     }
   }
 
@@ -46,17 +51,18 @@ class _DetailWidgetState extends State<DetailWidget> {
   }
 
   BottomNavigationBar setBottomNavigation() {
-    const share =
-        BottomNavigationBarItem(icon: Icon(Icons.share), title: Text("Share"));
+    const share = BottomNavigationBarItem(
+        icon: Icon(Icons.share), title: Text(Localize.share));
 
     const save = BottomNavigationBarItem(
-        icon: Icon(Icons.favorite_border), title: Text("Save"));
+        icon: Icon(Icons.favorite_border), title: Text(Localize.save));
 
     const back = BottomNavigationBarItem(
-        icon: Icon(Icons.arrow_back), title: Text("Back"));
+        icon: Icon(Icons.arrow_back), title: Text(Localize.back));
 
     if (widget.content.isVideo) {
       return setBottomBar(const <BottomNavigationBarItem>[
+        share,
         save,
         back,
       ], _onBottomBarTap, currentIndex: 1);
@@ -113,13 +119,6 @@ class _DetailWidgetState extends State<DetailWidget> {
           ),
         ),
         hideAppBar: true,
-        bottomNavigationBar: setBottomBar(const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.share), title: Text("Share")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border), title: Text("Save")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.arrow_back), title: Text("Back")),
-        ], _onBottomBarTap, currentIndex: 2));
+        bottomNavigationBar: setBottomNavigation());
   }
 }

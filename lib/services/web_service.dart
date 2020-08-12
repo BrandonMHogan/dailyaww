@@ -4,14 +4,23 @@ import 'package:dailyaww/models/reddit/reddit_model.dart';
 import 'package:http/http.dart';
 
 class WebService {
+  // base reddit url for loading content from reddit
+  static const String redditBase = 'https://www.reddit.com/r/';
+  // aww subreddit. The primary content comes from here
+  static const String redditAww = 'aww/';
+
+  /// flavour used to determine the order of content returned
+  static const String flavourNew = 'new';
+  static const String flavourTop = 'top';
+
+  /// Loads data from Reddit. Converts the data to a list
+  /// of Content for the view to consume
   Future<List<Content>> getRedditData(
-      {String subreddit = "aww", flavour = "new", String limit = "50"}) async {
-    String url = 'https://www.reddit.com/r/' +
-        subreddit +
-        '/' +
-        flavour +
-        '.json?raw_json=1&limit=' +
-        limit;
+      {String subreddit = redditAww,
+      flavour = flavourNew,
+      String limit = "50"}) async {
+    String url =
+        redditBase + subreddit + flavour + '.json?raw_json=1&limit=' + limit;
     Response response = await get(url);
     String json = response.body;
 
@@ -24,7 +33,7 @@ class WebService {
     model.data.children.removeWhere(
         (child) => child.data.preview.images[0].source.width <= 900);
 
-    //TODO: REMOVE THIS. ONLY GOOD FOR GETTING ONLY VIDEO TYPE
+    //TODO: Testing only. Forces only video types back to the listener
     //model.data.children.removeWhere((child) => child.data.media == null);
 
     List<Content> contentList = List<Content>();
