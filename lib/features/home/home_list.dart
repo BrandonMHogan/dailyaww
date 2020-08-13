@@ -11,35 +11,35 @@ class HomeListWidget extends StatefulWidget {
 }
 
 class _HomeListWidgetState extends State<HomeListWidget> {
-  ScrollController _scrollController = new ScrollController();
-
   @override
   void initState() {
-    super.initState();
     Provider.of<HomeListViewModel>(context, listen: false).setRefresh(true);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeListViewModel>(
       builder: (context, viewModel, child) {
-        return appScaffold(list(viewModel.content),
+        return appScaffold(list(viewModel),
             hideAppBar: true,
-            isLoading: viewModel.isRefresh,
+            isLoading: viewModel.isRefresh(),
             bottomNavigationBar: viewModel.setBottomNavigation());
       },
     );
   }
 
   /// Builds the list view displayed in the build function
-  Widget list(content) {
+  Widget list(viewModel) {
+    var content = viewModel.content;
     // loads the pixel ration and screen width for image resizing
     var pixRatio = MediaQuery.of(context).devicePixelRatio;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return ListView.builder(
-      controller: _scrollController,
+    Widget listview = ListView.builder(
+      controller: viewModel.getScrollController(),
       itemCount: content.length,
+      //key: ObjectKey(content[0]),
       itemBuilder: (context, index) {
         if (content == null) {
           return Text("No items found");
@@ -68,5 +68,7 @@ class _HomeListWidgetState extends State<HomeListWidget> {
             ));
       },
     );
+
+    return listview;
   }
 }

@@ -31,6 +31,11 @@ class BaseViewModel extends ChangeNotifier {
     _refreshController.add(_popBackStack);
   }
 
+  /// Public getting for the refresh bool
+  bool isRefresh() {
+    return _refresh;
+  }
+
   /// Required to close any stream controller that has been opened
   void dispose() {
     super.dispose();

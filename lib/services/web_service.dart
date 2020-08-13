@@ -24,7 +24,7 @@ class WebService {
   Future<List<Content>> _getRedditData(
       {String subreddit = redditAww,
       flavour = flavourNew,
-      String limit = "50"}) async {
+      String limit = "400"}) async {
     String url =
         redditBase + subreddit + flavour + '.json?raw_json=1&limit=' + limit;
     Response response = await get(url);

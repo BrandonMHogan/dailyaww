@@ -9,7 +9,19 @@ import 'package:flutter/material.dart';
 class HomeListViewModel extends BaseViewModel {
   List<ContentViewModel> content = List<ContentViewModel>();
 
-  bool isRefresh = false;
+  /// Stores the scroll controller reference in the view model
+  /// so that it can stay persistent between rebuilds, and can be
+  /// directly accessed in the view model
+  ScrollController _scrollController;
+
+  /// public getter for the scroll controller. Will create it if it
+  /// doesn't already exist
+  ScrollController getScrollController() {
+    if (_scrollController == null) {
+      _scrollController = new ScrollController();
+    }
+    return _scrollController;
+  }
 
   /// loads the content from the web service, converts it to a list
   /// of content view models and returns it back to the listener
@@ -39,10 +51,13 @@ class HomeListViewModel extends BaseViewModel {
 
   @override
   void setRefresh(value) {
-    isRefresh = value;
     super.setRefresh(value);
-    // if true, will load fresh content
-    if (value) _getContent();
+    // if true, will load fresh content and scroll to the top
+    if (value) {
+      _getContent();
+      _scrollController?.animateTo(0.0,
+          duration: const Duration(milliseconds: 700), curve: Curves.easeOut);
+    }
     //notifyListeners();
   }
 
