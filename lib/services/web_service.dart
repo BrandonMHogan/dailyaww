@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:dailyaww/models/content.dart';
 import 'package:dailyaww/models/reddit/reddit_model.dart';
@@ -13,9 +14,14 @@ class WebService {
   static const String flavourNew = 'new';
   static const String flavourTop = 'top';
 
+  /// public facing future that returns all content from all sources
+  Future<List<Content>> getContent() {
+    return _getRedditData();
+  }
+
   /// Loads data from Reddit. Converts the data to a list
   /// of Content for the view to consume
-  Future<List<Content>> getRedditData(
+  Future<List<Content>> _getRedditData(
       {String subreddit = redditAww,
       flavour = flavourNew,
       String limit = "50"}) async {

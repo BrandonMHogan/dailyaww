@@ -1,5 +1,5 @@
 import 'package:dailyaww/common/theme.dart';
-import 'package:dailyaww/features/detail/detail_widget.dart';
+import 'package:dailyaww/features/detail/detail.dart';
 import 'package:dailyaww/features/home/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -50,7 +50,6 @@ class MyApp extends StatelessWidget {
               Routes.Detail: (context) => DetailWidget(),
             },
           );
-          ;
         }
 
         // Otherwise, show something whilst waiting for initialization to complete

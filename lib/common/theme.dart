@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 // ignore: camel_case_types
 class appTheme {
@@ -56,11 +57,12 @@ appScaffold(Widget body,
     String title = "Daily Aww",
     List<Widget> actions,
     Widget actionButton,
-    BottomNavigationBar bottomNavigationBar}) {
+    BottomNavigationBar bottomNavigationBar,
+    bool isLoading = false}) {
   return Scaffold(
       backgroundColor: appTheme.background,
       appBar: hideAppBar ? null : setAppBar(title: title, actions: actions),
-      body: body,
+      body: ModalProgressHUD(inAsyncCall: isLoading, child: body),
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: actionButton);
 }
