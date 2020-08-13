@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dailyaww/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
@@ -20,9 +21,10 @@ class ImageService {
       cacheManager: _baseCacheManager,
       imageUrl: url,
       progressIndicatorBuilder: (context, url, downloadProgress) =>
-          CircularProgressIndicator(value: downloadProgress.progress),
+          getCenteredCircularProgressIndicator(downloadProgress),
+
       // TODO: Look into adding a callback so that the view can handle failed loads
-      errorWidget: (context, url, error) => Icon(Icons.error),
+      errorWidget: (context, url, error) => setErrorDialog(),
     );
   }
 }

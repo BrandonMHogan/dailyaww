@@ -16,33 +16,18 @@ class _HomeListItemWidgetState extends State<HomeListItem> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        children: <Widget>[
-          ListTile(
-            title: Text(
-              widget.content.title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            //subtitle: Text(item.isVideo ? "is video" : ""),
-            trailing: Icon(
-              Icons.favorite_border,
-              color: appTheme.accent,
-            ),
-          ),
-          new Flexible(
-              child: GestureDetector(
-            onTap: () {
-              Routes.toDetail(context, widget.content);
-            },
-            child: Hero(
-              tag: widget.content.id,
-              child: ImageService.cacheImage(widget.content.preview),
-            ),
-          )),
-          Padding(padding: const EdgeInsets.all(3.5))
-        ],
-      ),
+      child: Flexible(
+          child: GestureDetector(
+              onTap: () {
+                Routes.toDetail(context, widget.content);
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(5),
+                child: Hero(
+                  tag: widget.content.id,
+                  child: ImageService.cacheImage(widget.content.preview),
+                ),
+              ))),
     );
   }
 }

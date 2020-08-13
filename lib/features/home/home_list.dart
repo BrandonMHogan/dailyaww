@@ -51,7 +51,7 @@ class _HomeListWidgetState extends State<HomeListWidget> {
         final previewWidth = item.previewWidth / pixRatio;
         final previewHeight = item.previewHeight / pixRatio;
         final widthResizeRatio = screenWidth / previewWidth;
-        var heightResized = (previewHeight * widthResizeRatio) + 60;
+        var heightResized = (previewHeight * widthResizeRatio) - 2;
 
         if (heightResized > previewWidth) {
           heightResized = previewWidth;

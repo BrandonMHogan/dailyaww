@@ -56,7 +56,7 @@ class HomeListViewModel extends BaseViewModel {
     if (value) {
       _getContent();
       _scrollController?.animateTo(0.0,
-          duration: const Duration(milliseconds: 700), curve: Curves.easeOut);
+          duration: const Duration(milliseconds: 1000), curve: Curves.easeOut);
     }
     //notifyListeners();
   }

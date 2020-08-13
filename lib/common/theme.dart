@@ -6,7 +6,7 @@ class appTheme {
   static const primary = Colors.deepPurple;
   static const accent = Colors.white70;
   static const textColor = Colors.white70;
-  static const background = Colors.black87;
+  static const background = const Color(0xCC181818);
   static const widgetBackground = Colors.white12;
   static const fontFamily = 'Corben';
 
@@ -62,7 +62,11 @@ appScaffold(Widget body,
   return Scaffold(
       backgroundColor: appTheme.background,
       appBar: hideAppBar ? null : setAppBar(title: title, actions: actions),
-      body: ModalProgressHUD(inAsyncCall: isLoading, child: body),
+      body: ModalProgressHUD(
+        inAsyncCall: isLoading,
+        child: body,
+        progressIndicator: getCircularProgressIndicator(),
+      ),
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: actionButton);
 }
@@ -86,4 +90,32 @@ setBottomBar(List<BottomNavigationBarItem> items, ontap, {currentIndex = 0}) {
     onTap: ontap,
     currentIndex: currentIndex,
   );
+}
+
+/// styled, centered circular progress indicator
+getCenteredCircularProgressIndicator(
+  downloadProgress, {
+  size = 48.0,
+}) {
+  return Center(
+    child: Container(
+      margin: const EdgeInsets.all(10.0),
+      width: size,
+      height: size,
+      child: getCircularProgressIndicator(downloadProgress: downloadProgress),
+    ),
+  );
+}
+
+/// styled circular progress indicator
+getCircularProgressIndicator({downloadProgress}) {
+  return CircularProgressIndicator(
+      value: downloadProgress?.progress,
+      valueColor: new AlwaysStoppedAnimation<Color>(appTheme.primary),
+      backgroundColor: Colors.transparent);
+}
+
+///globally designed error dialog
+setErrorDialog() {
+  return Icon(Icons.error);
 }
