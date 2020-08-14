@@ -1,18 +1,17 @@
 import 'package:dailyaww/common/routes.dart';
-import 'package:dailyaww/common/theme.dart';
 import 'package:dailyaww/services/image_service.dart';
 import 'package:dailyaww/features/shared/content_viewmodel.dart';
 import 'package:flutter/material.dart';
 
-class HomeListItem extends StatefulWidget {
+class ContentListItem extends StatefulWidget {
   @override
-  _HomeListItemWidgetState createState() => _HomeListItemWidgetState();
+  _ContentListItemWidgetState createState() => _ContentListItemWidgetState();
 
   final ContentViewModel content;
-  HomeListItem({this.content});
+  ContentListItem({this.content});
 }
 
-class _HomeListItemWidgetState extends State<HomeListItem> {
+class _ContentListItemWidgetState extends State<ContentListItem> {
   @override
   Widget build(BuildContext context) {
     return Card(

@@ -1,30 +1,29 @@
+import 'package:dailyaww/common/routes.dart';
 import 'package:dailyaww/common/theme.dart';
-import 'package:dailyaww/features/home/home_list_item.dart';
-import 'package:dailyaww/features/home/home_list_viewmodel.dart';
+import 'package:dailyaww/features/list/content_list_viewmodel.dart';
 import 'package:dailyaww/features/shared/content_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomeListWidget extends StatefulWidget {
+import 'content_list_item.dart';
+
+class ContentListWidget extends StatefulWidget {
   @override
-  _HomeListWidgetState createState() => _HomeListWidgetState();
+  _ContentListWidgetState createState() => _ContentListWidgetState();
 }
 
-class _HomeListWidgetState extends State<HomeListWidget> {
+class _ContentListWidgetState extends State<ContentListWidget> {
   @override
   void initState() {
-    Provider.of<HomeListViewModel>(context, listen: false).setRefresh(true);
+    Provider.of<ContentListViewModel>(context, listen: false).setRefresh(true);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeListViewModel>(
+    return Consumer<ContentListViewModel>(
       builder: (context, viewModel, child) {
-        return appScaffold(list(viewModel),
-            hideAppBar: true,
-            isLoading: viewModel.isRefresh(),
-            bottomNavigationBar: viewModel.setBottomNavigation());
+        return list(viewModel);
       },
     );
   }
@@ -63,9 +62,7 @@ class _HomeListWidgetState extends State<HomeListWidget> {
               minHeight: heightResized,
               maxHeight: heightResized,
             ),
-            child: HomeListItem(
-              content: item,
-            ));
+            child: ContentListItem(content: item));
       },
     );
 

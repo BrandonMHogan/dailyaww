@@ -83,7 +83,7 @@ setAppBar({String title = "Daily Aww", List<Widget> actions}) {
 setBottomBar(List<BottomNavigationBarItem> items, ontap, {currentIndex = 0}) {
   return BottomNavigationBar(
     type: BottomNavigationBarType.fixed,
-    selectedItemColor: appTheme.accent,
+    selectedItemColor: appTheme.primary,
     unselectedItemColor: appTheme.accent,
     backgroundColor: appTheme.widgetBackground,
     items: items,

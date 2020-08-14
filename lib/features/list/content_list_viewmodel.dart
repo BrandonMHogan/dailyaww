@@ -6,10 +6,14 @@ import 'package:dailyaww/services/content_service.dart';
 import 'package:dailyaww/services/localizations_service.dart';
 import 'package:flutter/material.dart';
 
-class HomeListViewModel extends BaseViewModel {
-  List<ContentViewModel> content = List<ContentViewModel>();
+class ContentListViewModel extends BaseViewModel {
+  /// Constructor for the list view model
+  ContentListViewModel();
 
-  var showSaved = false;
+  /// determins if we are showing saved or fresh content
+  bool _showSaved = false;
+  // list of content to be displayed in the list
+  List<ContentViewModel> content = List<ContentViewModel>();
 
   /// Stores the scroll controller reference in the view model
   /// so that it can stay persistent between rebuilds, and can be
@@ -32,7 +36,7 @@ class HomeListViewModel extends BaseViewModel {
     List<Content> results = List<Content>();
 
     // loads content based on if its should be saved or new content
-    await ContentService.getContent(saved: showSaved)
+    await ContentService.getContent(saved: _showSaved)
         .then((value) => results.addAll(value));
 
     // maps the results to the content view model list
@@ -57,11 +61,29 @@ class HomeListViewModel extends BaseViewModel {
     super.setRefresh(value);
     // if true, will load fresh content and scroll to the top
     if (value) {
+      // if we are refreshing the saved, then clear content first
+      if (_showSaved) clear();
       _getContent();
       _scrollController?.animateTo(0.0,
           duration: const Duration(milliseconds: 1000), curve: Curves.easeOut);
     }
-    //notifyListeners();
+  }
+
+  /// will clear the content, so it is empty
+  clear() {
+    content = List<ContentViewModel>();
+  }
+
+  /// toggles between showing saved or new content.
+  /// will only refresh the content if the passed value is different then
+  /// the existing value
+  showSavedContent(value) {
+    if (_showSaved != value) {
+      _showSaved = value;
+      clear();
+      setRefresh(true);
+      //notifyListeners();
+    }
   }
 
   /// Handles bottom bar taps. Index used to determine which
