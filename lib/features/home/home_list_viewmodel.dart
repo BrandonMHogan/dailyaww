@@ -2,12 +2,14 @@ import 'package:dailyaww/common/base_viewmodel.dart';
 import 'package:dailyaww/common/theme.dart';
 import 'package:dailyaww/features/shared/content_viewmodel.dart';
 import 'package:dailyaww/models/content.dart';
+import 'package:dailyaww/services/content_service.dart';
 import 'package:dailyaww/services/localizations_service.dart';
-import 'package:dailyaww/services/web_service.dart';
 import 'package:flutter/material.dart';
 
 class HomeListViewModel extends BaseViewModel {
   List<ContentViewModel> content = List<ContentViewModel>();
+
+  var isFavourites = false;
 
   /// Stores the scroll controller reference in the view model
   /// so that it can stay persistent between rebuilds, and can be
@@ -28,9 +30,8 @@ class HomeListViewModel extends BaseViewModel {
   Future<void> _getContent(
       {String subreddit, String flavour, String limit}) async {
     List<Content> results = List<Content>();
-    WebService loader = new WebService();
-    // awaits for the reddit data to come back and adds it to the content list
-    await loader.getContent().then((value) => results.addAll(value));
+
+    await ContentService.getContent().then((value) => results.addAll(value));
 
     // maps the results to the content view model list
     // only adds the new result to content if the exact id doesnt

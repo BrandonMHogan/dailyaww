@@ -15,13 +15,13 @@ class WebService {
   static const String flavourTop = 'top';
 
   /// public facing future that returns all content from all sources
-  Future<List<Content>> getContent() {
+  static Future<List<Content>> getContent() {
     return _getRedditData();
   }
 
   /// Loads data from Reddit. Converts the data to a list
   /// of Content for the view to consume
-  Future<List<Content>> _getRedditData(
+  static Future<List<Content>> _getRedditData(
       {String subreddit = redditAww,
       flavour = flavourNew,
       String limit = "400"}) async {

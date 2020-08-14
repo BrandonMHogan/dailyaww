@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:dailyaww/common/base_viewmodel.dart';
 import 'package:dailyaww/common/theme.dart';
 import 'package:dailyaww/features/shared/content_viewmodel.dart';
+import 'package:dailyaww/services/database_service.dart';
 import 'package:dailyaww/services/localizations_service.dart';
 import 'package:dailyaww/services/share_service.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +13,19 @@ class DetailViewModel extends BaseViewModel {
 
   // inits the view mode, requireing the content view model
   DetailViewModel({@required this.content});
+
+  // holds the value to determine if the view was saved
+  bool _saved = false;
+  // stream controller handles the streaming of saved
+  final _savedController = StreamController<bool>();
+  // public facing stream that can be listened to for saved
+  Stream<bool> get saved => _savedController.stream;
+
+  // pulbic facing function to set if the view was saved
+  void setSaved(value) {
+    _saved = value;
+    _savedController.add(_saved);
+  }
 
   /// Shares the content. Passes content data back to the
   /// share service.
@@ -25,6 +41,7 @@ class DetailViewModel extends BaseViewModel {
   void onBottomBarTap(int index) {
     if (index == 0) {
       //save content to favourites
+      DatabaseService.insertContent(content.content);
     } else if (!content.isVideo && index == 1)
       // shares the content
       share();
