@@ -1,4 +1,5 @@
 import 'package:dailyaww/common/base_viewmodel.dart';
+import 'package:dailyaww/common/routes.dart';
 import 'package:dailyaww/common/theme.dart';
 import 'package:dailyaww/features/shared/content_viewmodel.dart';
 import 'package:dailyaww/models/content.dart';
@@ -72,6 +73,8 @@ class ContentListViewModel extends BaseViewModel {
   /// will clear the content, so it is empty
   clear() {
     content = List<ContentViewModel>();
+    // notifies any listeners
+    notifyListeners();
   }
 
   /// toggles between showing saved or new content.
