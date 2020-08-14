@@ -1,5 +1,6 @@
 import 'package:dailyaww/features/home/home_list.dart';
 import 'package:dailyaww/features/home/home_list_viewmodel.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,14 @@ class HomeWidget extends StatefulWidget {
 /// Provides the home view model which handles the content loading
 /// to its child, the HomeList widget.
 class _HomeWidgetState extends State<HomeWidget> {
+  FirebaseAnalytics analytics = FirebaseAnalytics();
+
+  @override
+  void initState() {
+    super.initState();
+    // analytics.setCurrentScreen(screenName: '/home');
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(

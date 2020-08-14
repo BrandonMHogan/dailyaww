@@ -9,4 +9,10 @@ class ContentService {
     if (saved) return DatabaseService.getContent();
     return WebService.getContent();
   }
+
+  /// Will return the content if it is saved in the database, or
+  /// null if its not
+  static Future<Content> isSaved(String id) async {
+    return DatabaseService.getContentById(id);
+  }
 }

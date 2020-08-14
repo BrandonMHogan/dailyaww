@@ -16,18 +16,23 @@ class _HomeListItemWidgetState extends State<HomeListItem> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Flexible(
-          child: GestureDetector(
-              onTap: () {
-                Routes.toDetail(context, widget.content);
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Hero(
-                  tag: widget.content.id,
-                  child: ImageService.cacheImage(widget.content.preview),
-                ),
-              ))),
+      child: Flex(
+        direction: Axis.vertical,
+        children: [
+          Flexible(
+              child: GestureDetector(
+                  onTap: () {
+                    Routes.toDetail(context, widget.content);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Hero(
+                      tag: widget.content.id,
+                      child: ImageService.cacheImage(widget.content.preview),
+                    ),
+                  ))),
+        ],
+      ),
     );
   }
 }

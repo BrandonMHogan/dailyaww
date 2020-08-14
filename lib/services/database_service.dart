@@ -35,7 +35,7 @@ class DatabaseService {
     );
   }
 
-// A method that retrieves all the dogs from the dogs table.
+// A method that retrieves all the content from the content table.
   static Future<List<Content>> getContent() async {
     // Get a reference to the database.
     final Database db = await getDatabase();
@@ -47,5 +47,54 @@ class DatabaseService {
     return List.generate(maps.length, (i) {
       return Content.fromMap(maps[i]);
     });
+  }
+
+  static Future<Content> getContentById(String id) async {
+    // Get a reference to the database.
+    final Database db = await getDatabase();
+
+    // Query the table for all The Dogs.
+    final List<Map<String, dynamic>> maps = await db.query(
+      'content', where: "id = ?",
+      // Pass the content's id as a whereArg to prevent SQL injection.
+      whereArgs: [id],
+      limit: 1,
+    );
+
+    if (maps.isEmpty) return null;
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.generate(maps.length, (i) {
+      return Content.fromMap(maps[i]);
+    }).first;
+  }
+
+  static Future<void> updateContent(Content content) async {
+    // Get a reference to the database.
+    final db = await getDatabase();
+
+    // Update the given Dog.
+    await db.update(
+      'content',
+      content.toMap(),
+      // Ensure that the content has a matching id.
+      where: "id = ?",
+      // Pass the content's id as a whereArg to prevent SQL injection.
+      whereArgs: [content.id],
+    );
+  }
+
+  static Future<void> deleteContent(String id) async {
+    // Get a reference to the database.
+    final db = await getDatabase();
+
+    // Remove the Dog from the Database.
+    await db.delete(
+      'content',
+      // Use a `where` clause to delete a specific content.
+      where: "id = ?",
+      // Pass the content's id as a whereArg to prevent SQL injection.
+      whereArgs: [id],
+    );
   }
 }

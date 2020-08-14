@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class HomeListViewModel extends BaseViewModel {
   List<ContentViewModel> content = List<ContentViewModel>();
 
-  var isFavourites = false;
+  var showSaved = false;
 
   /// Stores the scroll controller reference in the view model
   /// so that it can stay persistent between rebuilds, and can be
@@ -31,7 +31,9 @@ class HomeListViewModel extends BaseViewModel {
       {String subreddit, String flavour, String limit}) async {
     List<Content> results = List<Content>();
 
-    await ContentService.getContent().then((value) => results.addAll(value));
+    // loads content based on if its should be saved or new content
+    await ContentService.getContent(saved: showSaved)
+        .then((value) => results.addAll(value));
 
     // maps the results to the content view model list
     // only adds the new result to content if the exact id doesnt

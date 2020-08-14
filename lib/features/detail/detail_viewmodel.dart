@@ -3,19 +3,22 @@ import 'dart:async';
 import 'package:dailyaww/common/base_viewmodel.dart';
 import 'package:dailyaww/common/theme.dart';
 import 'package:dailyaww/features/shared/content_viewmodel.dart';
+import 'package:dailyaww/services/content_service.dart';
 import 'package:dailyaww/services/database_service.dart';
 import 'package:dailyaww/services/localizations_service.dart';
 import 'package:dailyaww/services/share_service.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 class DetailViewModel extends BaseViewModel {
   ContentViewModel content = ContentViewModel();
+  VideoPlayerController controller;
 
   // inits the view mode, requireing the content view model
   DetailViewModel({@required this.content});
 
-  // holds the value to determine if the view was saved
-  bool _saved = false;
+  // holds the value to determine if the content was saved
+  bool _isSaved = false;
   // stream controller handles the streaming of saved
   final _savedController = StreamController<bool>();
   // public facing stream that can be listened to for saved
@@ -23,8 +26,17 @@ class DetailViewModel extends BaseViewModel {
 
   // pulbic facing function to set if the view was saved
   void setSaved(value) {
-    _saved = value;
-    _savedController.add(_saved);
+    _isSaved = value;
+    _savedController.add(_isSaved);
+    // notifies any listeners
+    notifyListeners();
+  }
+
+  /// will check if the content has been stored into the database,
+  /// then updates the save state
+  validateIfSaved() async {
+    ContentService.isSaved(this.content.id)
+        .then((value) => setSaved(value != null));
   }
 
   /// Shares the content. Passes content data back to the
@@ -38,10 +50,17 @@ class DetailViewModel extends BaseViewModel {
 
   /// Handles bottom bar taps. Index used to determine which
   /// button was pressed
-  void onBottomBarTap(int index) {
+  void onBottomBarTap(int index) async {
     if (index == 0) {
-      //save content to favourites
-      DatabaseService.insertContent(content.content);
+      if (_isSaved) {
+        //save content to favourites and validate its there
+        await DatabaseService.deleteContent(content.content.id)
+            .then((value) => validateIfSaved());
+      } else {
+        //save content to favourites and validate its there
+        await DatabaseService.insertContent(content.content)
+            .then((value) => validateIfSaved());
+      }
     } else if (!content.isVideo && index == 1)
       // shares the content
       share();
@@ -56,6 +75,9 @@ class DetailViewModel extends BaseViewModel {
         icon: Icon(Icons.share), title: Text(Localize.share));
 
     const save = BottomNavigationBarItem(
+        icon: Icon(Icons.favorite), title: Text(Localize.save));
+
+    const unSaved = BottomNavigationBarItem(
         icon: Icon(Icons.favorite_border), title: Text(Localize.save));
 
     const back = BottomNavigationBarItem(
@@ -65,16 +87,22 @@ class DetailViewModel extends BaseViewModel {
     // videos until I can figure out how to get it to correct transcribe
     // to IOS devices.
     if (content.isVideo) {
-      return setBottomBar(const <BottomNavigationBarItem>[
-        save,
+      return setBottomBar(<BottomNavigationBarItem>[
+        _isSaved ? save : unSaved,
         back,
       ], onBottomBarTap, currentIndex: 1);
     } else {
-      return setBottomBar(const <BottomNavigationBarItem>[
-        save,
+      return setBottomBar(<BottomNavigationBarItem>[
+        _isSaved ? save : unSaved,
         share,
         back,
       ], onBottomBarTap, currentIndex: 2);
     }
+  }
+
+  /// Required to close any stream controller that has been opened
+  void dispose() {
+    super.dispose();
+    _savedController.close();
   }
 }
