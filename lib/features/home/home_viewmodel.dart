@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:dailyaww/features/list/content_list_viewmodel.dart';
 
 class HomeViewModel {
