@@ -1,4 +1,4 @@
-import 'package:dailyaww/models/content.dart';
+import 'package:dailyaww/data/content.dart';
 import 'web_service.dart';
 import 'database_service.dart';
 

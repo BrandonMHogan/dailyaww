@@ -17,6 +17,6 @@ void main() {
           reason: "Make sure content can be incremented");
     });
 
-    // viewModel.add(new ContentViewModel());
+    // viewModel.add(new ContentModel());
   });
 }

@@ -1,4 +1,4 @@
-import 'package:dailyaww/models/content.dart';
+import 'package:dailyaww/data/content.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

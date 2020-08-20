@@ -2,20 +2,20 @@ import 'dart:async';
 
 import 'package:dailyaww/common/base_viewmodel.dart';
 import 'package:dailyaww/common/theme.dart';
-import 'package:dailyaww/features/shared/content_viewmodel.dart';
 import 'package:dailyaww/services/content_service.dart';
 import 'package:dailyaww/services/database_service.dart';
 import 'package:dailyaww/services/localizations_service.dart';
 import 'package:dailyaww/services/share_service.dart';
+import 'package:dailyaww/shared/content_item.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class DetailViewModel extends BaseViewModel {
-  ContentViewModel content = ContentViewModel();
+  ContentModel contentModel = ContentModel();
   VideoPlayerController controller;
 
   // inits the view mode, requireing the content view model
-  DetailViewModel({@required this.content});
+  DetailViewModel({@required this.contentModel});
 
   // holds the value to determine if the content was saved
   bool _isSaved = false;
@@ -35,17 +35,20 @@ class DetailViewModel extends BaseViewModel {
   /// will check if the content has been stored into the database,
   /// then updates the save state
   validateIfSaved() async {
-    ContentService.isSaved(this.content.id)
+    ContentService.isSaved(this.contentModel.content.id)
         .then((value) => setSaved(value != null));
   }
 
   /// Shares the content. Passes content data back to the
   /// share service.
   void share() {
-    if (content.isVideo)
-      ShareService.share(content.title, content.videoUrl, isVideo: true);
+    if (contentModel.content.isVideo)
+      ShareService.share(
+          contentModel.content.title, contentModel.content.videoUrl,
+          isVideo: true);
     else
-      ShareService.share(content.title, content.preview);
+      ShareService.share(
+          contentModel.content.title, contentModel.content.preview);
   }
 
   /// Handles bottom bar taps. Index used to determine which
@@ -54,14 +57,14 @@ class DetailViewModel extends BaseViewModel {
     if (index == 0) {
       if (_isSaved) {
         //save content to favourites and validate its there
-        await DatabaseService.deleteContent(content.content.id)
+        await DatabaseService.deleteContent(contentModel.content.id)
             .then((value) => validateIfSaved());
       } else {
         //save content to favourites and validate its there
-        await DatabaseService.insertContent(content.content)
+        await DatabaseService.insertContent(contentModel.content)
             .then((value) => validateIfSaved());
       }
-    } else if (!content.isVideo && index == 1)
+    } else if (!contentModel.content.isVideo && index == 1)
       // shares the content
       share();
     else {
@@ -86,7 +89,7 @@ class DetailViewModel extends BaseViewModel {
     // currently sharing video isn't working. So its not displayed for
     // videos until I can figure out how to get it to correct transcribe
     // to IOS devices.
-    if (content.isVideo) {
+    if (contentModel.content.isVideo) {
       return setBottomBar(<BottomNavigationBarItem>[
         _isSaved ? save : unSaved,
         back,

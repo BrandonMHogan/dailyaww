@@ -2,7 +2,7 @@ import 'package:dailyaww/common/theme.dart';
 import 'package:dailyaww/services/localizations_service.dart';
 import 'package:flutter/material.dart';
 
-BottomNavigationBar getHomeFooter(onBottomBarTap) {
+BottomNavigationBar getHomeFooter(onBottomBarTap, {currentIndex = 0}) {
   const home = BottomNavigationBarItem(
       icon: Icon(Icons.home), title: Text(Localize.home));
 
@@ -15,7 +15,10 @@ BottomNavigationBar getHomeFooter(onBottomBarTap) {
   const saved = BottomNavigationBarItem(
       icon: Icon(Icons.favorite), title: Text(Localize.saved));
 
-  return setBottomBar(
-      const <BottomNavigationBarItem>[home, saved, settings, refresh],
-      onBottomBarTap);
+  return setBottomBar(const <BottomNavigationBarItem>[
+    home,
+    saved,
+    settings,
+    refresh
+  ], onBottomBarTap, currentIndex: currentIndex);
 }

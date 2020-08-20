@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:dailyaww/models/content.dart';
-import 'package:dailyaww/models/reddit/reddit_model.dart';
+import 'package:dailyaww/data/content.dart';
+import 'package:dailyaww/data/reddit/reddit_model.dart';
 import 'package:http/http.dart';
 
 class WebService {

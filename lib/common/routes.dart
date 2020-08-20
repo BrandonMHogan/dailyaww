@@ -19,12 +19,12 @@ class Routes {
         settings: RouteSettings(name: 'HomeList')));
   }
 
-  static toDetail(context, content) {
+  static toDetail(context, contentModel) {
     return Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                DetailWidget(viewModel: DetailViewModel(content: content)),
+            builder: (context) => DetailWidget(
+                viewModel: DetailViewModel(contentModel: contentModel)),
             settings: RouteSettings(name: 'DetailView')));
   }
 

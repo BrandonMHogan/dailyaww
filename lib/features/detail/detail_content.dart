@@ -20,9 +20,9 @@ class _DetailContentWidgetState extends State<DetailContent> {
 
     // if the content is a video, then we need to stream the video
     // back to the video player and start it
-    if (viewModel.content.isVideo) {
-      viewModel.controller =
-          VideoPlayerController.network(viewModel.content.videoUrl);
+    if (viewModel.contentModel.content.isVideo) {
+      viewModel.controller = VideoPlayerController.network(
+          viewModel.contentModel.content.videoUrl);
       viewModel.controller.setVolume(1.0);
 
       viewModel.controller
@@ -39,7 +39,7 @@ class _DetailContentWidgetState extends State<DetailContent> {
   Widget build(BuildContext context) {
     return Consumer<DetailViewModel>(
       builder: (context, viewModel, child) {
-        if (viewModel.content.isVideo) {
+        if (viewModel.contentModel.content.isVideo) {
           return appScaffold(
               Center(
                 child: viewModel.controller.value.initialized
@@ -77,8 +77,9 @@ class _DetailContentWidgetState extends State<DetailContent> {
               },
               child: Center(
                 child: Hero(
-                  tag: viewModel.content.id,
-                  child: ImageService.cacheImage(viewModel.content.preview),
+                  tag: viewModel.contentModel.content.id,
+                  child: ImageService.cacheImage(
+                      viewModel.contentModel.content.preview),
                 ),
               ),
             ),
