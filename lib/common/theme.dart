@@ -39,6 +39,9 @@ class appTheme {
     primaryColor: primary,
     accentColor: accent,
     backgroundColor: background,
+    primarySwatch: primary,
+    brightness: Brightness.dark,
+    canvasColor: Colors.transparent,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     cardTheme: cardTheme,
     textTheme: TextTheme(
@@ -58,6 +61,7 @@ appScaffold(Widget body,
     List<Widget> actions,
     Widget actionButton,
     BottomNavigationBar bottomNavigationBar,
+    Widget footer,
     bool isLoading = false}) {
   return Scaffold(
       backgroundColor: appTheme.background,

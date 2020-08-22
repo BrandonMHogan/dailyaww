@@ -1,4 +1,6 @@
 import 'package:dailyaww/data/content.dart';
+import 'package:dailyaww/shared/content_item.dart';
+import 'package:dailyaww/shared/content_state.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -20,7 +22,7 @@ class DatabaseService {
     );
   }
 
-  static Future<void> insertContent(Content content) async {
+  static Future<int> insertContent(ContentModel contentModel) async {
     // Get a reference to the database.
     final Database db = await getDatabase();
 
@@ -28,9 +30,9 @@ class DatabaseService {
     // `conflictAlgorithm` to use in case the same dog is inserted twice.
     //
     // In this case, replace any previous data.
-    await db.insert(
+    return db.insert(
       'content',
-      content.toMap(),
+      contentModel.content.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -84,17 +86,17 @@ class DatabaseService {
     );
   }
 
-  static Future<void> deleteContent(String id) async {
+  static Future<int> deleteContent(ContentModel contentModel) async {
     // Get a reference to the database.
     final db = await getDatabase();
 
     // Remove the Dog from the Database.
-    await db.delete(
+    return db.delete(
       'content',
       // Use a `where` clause to delete a specific content.
       where: "id = ?",
       // Pass the content's id as a whereArg to prevent SQL injection.
-      whereArgs: [id],
+      whereArgs: [contentModel.content.id],
     );
   }
 }

@@ -24,6 +24,12 @@ class _MyAppState extends State<MyApp> {
   final ContentState contentState = ContentState();
 
   @override
+  void dispose() {
+    contentState.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       // Initialize FlutterFire

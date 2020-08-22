@@ -1,4 +1,5 @@
 import 'package:dailyaww/services/content_service.dart';
+import 'package:dailyaww/shared/content_item.dart';
 import 'package:dailyaww/shared/fresh_list_content.dart';
 import 'package:dailyaww/shared/saved_list_content.dart';
 import 'package:flutter/foundation.dart';
@@ -39,6 +40,11 @@ class ContentState extends ChangeNotifier {
   Future<void> _populateFreshContent({notify = false}) async {
     fresh.setContent(await ContentService.getContent(saved: false),
         notify: notify);
+  }
+
+  /// Helper function to see if the content model has been saved or not
+  bool isContentSaved(ContentModel contentModel) {
+    return saved.content.contains(contentModel);
   }
 
   /// Will update the display state, notifing any screen that might

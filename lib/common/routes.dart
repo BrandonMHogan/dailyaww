@@ -23,8 +23,7 @@ class Routes {
     return Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => DetailWidget(
-                viewModel: DetailViewModel(contentModel: contentModel)),
+            builder: (context) => DetailWidget(contentModel: contentModel),
             settings: RouteSettings(name: 'DetailView')));
   }
 

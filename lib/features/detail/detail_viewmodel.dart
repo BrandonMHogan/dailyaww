@@ -57,11 +57,11 @@ class DetailViewModel extends BaseViewModel {
     if (index == 0) {
       if (_isSaved) {
         //save content to favourites and validate its there
-        await DatabaseService.deleteContent(contentModel.content.id)
+        await DatabaseService.deleteContent(contentModel)
             .then((value) => validateIfSaved());
       } else {
         //save content to favourites and validate its there
-        await DatabaseService.insertContent(contentModel.content)
+        await DatabaseService.insertContent(contentModel)
             .then((value) => validateIfSaved());
       }
     } else if (!contentModel.content.isVideo && index == 1)

@@ -7,6 +7,10 @@ class ContentModel with ChangeNotifier {
 
   ContentModel({this.content});
 
+  notify() {
+    notifyListeners();
+  }
+
   String get id {
     return this.content.id;
   }

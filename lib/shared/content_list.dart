@@ -27,14 +27,23 @@ class ContentListModel with ChangeNotifier {
 
   /// Adds a new item to the content
   void addContent(ContentModel value, {notify = false}) {
-    _content.add(value);
-    if (notify) notifyListeners();
+    if (!_content.contains(value)) {
+      _content.add(value);
+    }
+
+    if (notify) {
+      notifyListeners();
+      value.notifyListeners();
+    }
   }
 
   /// Removes an new item from the content list
   void removeContent(ContentModel value, {notify = false}) {
     _content.remove(value);
-    if (notify) notifyListeners();
+    if (notify) {
+      notifyListeners();
+      value.notifyListeners();
+    }
   }
 
   void sort({notify = false}) {
