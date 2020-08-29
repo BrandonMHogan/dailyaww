@@ -23,7 +23,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         break;
       case 2:
         // settings
-        Routes.toSettings(context);
+        Routes.toSettings(this, context);
         break;
       case 3:
         // refresh
