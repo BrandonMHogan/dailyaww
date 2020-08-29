@@ -1,4 +1,4 @@
-import 'package:dailyaww/common/transitions/fade_route.dart';
+import 'package:dailyaww/common/routes/transitions/fade_route.dart';
 import 'package:dailyaww/features/detail/detail.dart';
 import 'package:dailyaww/features/home/home.dart';
 import 'package:dailyaww/features/settings/settings.dart';
@@ -22,7 +22,7 @@ class Routes {
         context, FadeRoute(page: DetailWidget(contentModel: contentModel)));
   }
 
-  static void toSettings(self, context) {
+  static void toSettings(context) {
     Navigator.push(context, FadeRoute(page: Settings()));
   }
 

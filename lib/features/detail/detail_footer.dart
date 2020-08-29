@@ -1,4 +1,5 @@
-import 'package:dailyaww/common/theme.dart';
+import 'package:dailyaww/common/styles/theme.dart';
+import 'package:dailyaww/common/styles/theme_model.dart';
 import 'package:dailyaww/services/database_service.dart';
 import 'package:dailyaww/services/localizations_service.dart';
 import 'package:dailyaww/services/share_service.dart';
@@ -75,19 +76,17 @@ class _DetailFooterState extends State<DetailFooter> {
   Widget build(BuildContext context) {
     contentState = Provider.of<ContentState>(context);
     contentModel = Provider.of<ContentModel>(context);
+    var theme = Provider.of<ThemeModel>(context, listen: false);
     isSaved = contentState.isContentSaved(contentModel);
 
-    if (widget.isVideo) {
-      return setBottomBar(<BottomNavigationBarItem>[
-        isSaved ? DetailFooter.save : DetailFooter.unSaved,
-        DetailFooter.back,
-      ], onBottomBarTap, currentIndex: 1);
-    } else {
-      return setBottomBar(<BottomNavigationBarItem>[
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      items: <BottomNavigationBarItem>[
         isSaved ? DetailFooter.save : DetailFooter.unSaved,
         DetailFooter.share,
         DetailFooter.back,
-      ], onBottomBarTap, currentIndex: 2);
-    }
+      ],
+      onTap: onBottomBarTap,
+    );
   }
 }

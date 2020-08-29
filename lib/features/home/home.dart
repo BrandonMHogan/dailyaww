@@ -1,5 +1,3 @@
-import 'package:dailyaww/common/routes.dart';
-import 'package:dailyaww/common/theme.dart';
 import 'package:dailyaww/features/content_lists/fresh_list.dart';
 import 'package:dailyaww/features/content_lists/saved_list.dart';
 import 'package:dailyaww/features/home/home_footer.dart';
@@ -13,44 +11,17 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  void onBottomBarTap(int index) {
-    var contentState = Provider.of<ContentState>(context, listen: false);
-    switch (index) {
-      case 1:
-        // saved
-        //viewModel.showSaved();
-        contentState.showSaved();
-        break;
-      case 2:
-        // settings
-        Routes.toSettings(this, context);
-        break;
-      case 3:
-        // refresh
-        contentState.refresh();
-        break;
-      default:
-        //viewModel.showNew();
-        contentState.showFresh();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     var contentState = Provider.of<ContentState>(context);
 
-    switch (contentState.displayState) {
-      case DisplayState.saved:
-        return appScaffold(SaveList(),
-            hideAppBar: true,
-            bottomNavigationBar:
-                getHomeFooter(onBottomBarTap, currentIndex: 1));
-        break;
-      default:
-        return appScaffold(FreshList(),
-            hideAppBar: true,
-            bottomNavigationBar:
-                getHomeFooter(onBottomBarTap, currentIndex: 0));
-    }
+    return Scaffold(
+      body: contentState.displayState == DisplayState.saved
+          ? SaveList()
+          : FreshList(),
+      bottomNavigationBar: HomeFooter(
+        currentIndex: contentState.displayState == DisplayState.saved ? 1 : 0,
+      ),
+    );
   }
 }

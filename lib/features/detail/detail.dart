@@ -1,5 +1,5 @@
-import 'package:dailyaww/common/routes.dart';
-import 'package:dailyaww/common/theme.dart';
+import 'package:dailyaww/common/routes/routes.dart';
+import 'package:dailyaww/common/styles/theme.dart';
 import 'package:dailyaww/features/detail/detail_footer.dart';
 import 'package:dailyaww/features/detail/detail_image.dart';
 import 'package:dailyaww/features/detail/detail_video.dart';

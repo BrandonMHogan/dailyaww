@@ -1,98 +1,117 @@
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+
+ThemeData darkTheme = ThemeData.dark().copyWith(
+    primaryColor: appTheme.darkPrimary,
+    accentColor: appTheme.darkAccent,
+    backgroundColor: appTheme.darkBackground,
+    brightness: Brightness.dark,
+    canvasColor: Colors.transparent,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    cardTheme: appTheme.darkCardTheme,
+    textTheme: TextTheme(
+      headline1: appTheme.darkHeadlineTheme,
+      bodyText1: appTheme.darkTextTheme,
+      bodyText2: appTheme.darkTextTheme,
+      subtitle1: appTheme.darkSubTextTheme,
+      subtitle2: appTheme.darkSubTextTheme,
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.grey[900],
+      elevation: 10,
+      selectedLabelStyle: TextStyle(
+          color: Color(0xFFA67926), fontFamily: 'Montserrat', fontSize: 14.0),
+      unselectedLabelStyle: TextStyle(
+          color: Colors.grey[600], fontFamily: 'Montserrat', fontSize: 12.0),
+      selectedItemColor: Color(0xFFA67926),
+      unselectedItemColor: Colors.grey[600],
+      showUnselectedLabels: true,
+    ));
+
+ThemeData lightTheme = ThemeData.light().copyWith(
+    primaryColor: appTheme.lightPrimary,
+    accentColor: appTheme.lightAccent,
+    backgroundColor: appTheme.lightBackground,
+    brightness: Brightness.light,
+    canvasColor: Colors.transparent,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    cardTheme: appTheme.lightCardTheme,
+    textTheme: TextTheme(
+      headline1: appTheme.lightHeadlineTheme,
+      bodyText1: appTheme.lightTextTheme,
+      bodyText2: appTheme.lightTextTheme,
+      subtitle1: appTheme.lightSubTextTheme,
+      subtitle2: appTheme.lightSubTextTheme,
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.grey[900],
+      elevation: 10,
+      selectedLabelStyle: TextStyle(
+          color: Color(0xFFA67926), fontFamily: 'Montserrat', fontSize: 14.0),
+      unselectedLabelStyle: TextStyle(
+          color: Colors.grey[600], fontFamily: 'Montserrat', fontSize: 12.0),
+      selectedItemColor: Color(0xFFA67926),
+      unselectedItemColor: Colors.grey[600],
+      showUnselectedLabels: true,
+    ));
 
 // ignore: camel_case_types
 class appTheme {
-  static const primary = Colors.deepPurple;
-  static const accent = Colors.white70;
-  static const textColor = Colors.white70;
-  static const background = const Color(0xCC181818);
-  static const widgetBackground = Colors.white12;
+  static const darkPrimary = Colors.deepPurple;
+  static const darkAccent = Colors.white70;
+  static const darkTextColor = Colors.white70;
+  static const darkBackground = const Color(0xCC181818);
+  static const darkWidgetBackground = Colors.white12;
+
+  static const lightPrimary = Colors.purple;
+  static const lightAccent = Colors.blue;
+  static const lightTextColor = Colors.black;
+  static const lightBackground = Colors.white;
+  static const lightWidgetBackground = Colors.white30;
+
   static const fontFamily = 'Corben';
 
   /// Theme for generic text
-  static final textTheme = TextStyle(
-    color: textColor,
+  static final darkTextTheme = TextStyle(
+    color: darkTextColor,
+    fontFamily: fontFamily,
+  );
+
+  static final lightTextTheme = TextStyle(
+    color: lightTextColor,
     fontFamily: fontFamily,
   );
 
   /// Theme for subtext (includes ListTile)
-  static final subTextTheme = TextStyle(
-    color: textColor,
+  static final darkSubTextTheme = TextStyle(
+    color: darkTextColor,
+    fontFamily: fontFamily,
+  );
+
+  static final lightSubTextTheme = TextStyle(
+    color: lightTextColor,
     fontFamily: fontFamily,
   );
 
   /// Theme for headline items
-  static final headlineTheme = TextStyle(
-    color: textColor,
+  static final darkHeadlineTheme = TextStyle(
+    color: darkTextColor,
+    fontFamily: fontFamily,
+  );
+
+  static final lightHeadlineTheme = TextStyle(
+    color: lightTextColor,
     fontFamily: fontFamily,
   );
 
   /// Theme for Cards
-  static final cardTheme = CardTheme(
-    color: widgetBackground,
+  static final darkCardTheme = CardTheme(
+    color: darkWidgetBackground,
     elevation: 3,
   );
 
-  /// Global App Theme
-  static var theme = ThemeData(
-    primaryColor: primary,
-    accentColor: accent,
-    backgroundColor: background,
-    primarySwatch: primary,
-    brightness: Brightness.dark,
-    canvasColor: Colors.transparent,
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-    cardTheme: cardTheme,
-    textTheme: TextTheme(
-      headline1: headlineTheme,
-      bodyText1: textTheme,
-      bodyText2: textTheme,
-      subtitle1: subTextTheme,
-      subtitle2: subTextTheme,
-    ),
-  );
-}
-
-/// global scaffold style
-appScaffold(Widget body,
-    {hideAppBar = false,
-    String title = "Daily Aww",
-    List<Widget> actions,
-    Widget actionButton,
-    BottomNavigationBar bottomNavigationBar,
-    Widget footer,
-    bool isLoading = false}) {
-  return Scaffold(
-      backgroundColor: appTheme.background,
-      appBar: hideAppBar ? null : setAppBar(title: title, actions: actions),
-      body: ModalProgressHUD(
-        inAsyncCall: isLoading,
-        child: body,
-        progressIndicator: getCircularProgressIndicator(),
-      ),
-      bottomNavigationBar: bottomNavigationBar,
-      floatingActionButton: actionButton);
-}
-
-/// global app bar style
-setAppBar({String title = "Daily Aww", List<Widget> actions}) {
-  return AppBar(
-    title: Text(title),
-    actions: actions,
-  );
-}
-
-/// global bottom bar style
-setBottomBar(List<BottomNavigationBarItem> items, ontap, {currentIndex = 0}) {
-  return BottomNavigationBar(
-    type: BottomNavigationBarType.fixed,
-    selectedItemColor: appTheme.primary,
-    unselectedItemColor: appTheme.accent,
-    backgroundColor: appTheme.widgetBackground,
-    items: items,
-    onTap: ontap,
-    currentIndex: currentIndex,
+  static final lightCardTheme = CardTheme(
+    color: lightWidgetBackground,
+    elevation: 3,
   );
 }
 
@@ -115,7 +134,7 @@ getCenteredCircularProgressIndicator(
 getCircularProgressIndicator({downloadProgress}) {
   return CircularProgressIndicator(
       value: downloadProgress?.progress,
-      valueColor: new AlwaysStoppedAnimation<Color>(appTheme.primary),
+      valueColor: new AlwaysStoppedAnimation<Color>(appTheme.darkPrimary),
       backgroundColor: Colors.transparent);
 }
 

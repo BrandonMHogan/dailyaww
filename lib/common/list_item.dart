@@ -1,4 +1,4 @@
-import 'package:dailyaww/common/routes.dart';
+import 'package:dailyaww/common/routes/routes.dart';
 import 'package:dailyaww/services/image_service.dart';
 import 'package:flutter/material.dart';
 
