@@ -60,6 +60,9 @@ class WebService {
       ));
     });
 
+    // TODO: right now i only want none video type content
+    contentList.removeWhere((child) => child.isVideo);
+
     return contentList;
   }
 }

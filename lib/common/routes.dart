@@ -1,6 +1,7 @@
 import 'package:dailyaww/features/detail/detail_viewmodel.dart';
 import 'package:dailyaww/features/detail/detail.dart';
 import 'package:dailyaww/features/home/home.dart';
+import 'package:dailyaww/features/settings/settings.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -25,6 +26,12 @@ class Routes {
         MaterialPageRoute(
             builder: (context) => DetailWidget(contentModel: contentModel),
             settings: RouteSettings(name: 'DetailView')));
+  }
+
+  static void toSettings(context) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => Settings(),
+        settings: RouteSettings(name: 'Settings')));
   }
 
   static void pop(context) {

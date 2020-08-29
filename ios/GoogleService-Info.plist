@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>315673900552-s74jh7envo8f2skl8k8tu1m200k72cib.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.315673900552-s74jh7envo8f2skl8k8tu1m200k72cib</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAVnDqSnw3x5ZWxNLLulbcAE4HIEkufArQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>315673900552</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.brandonhogan.dailyaww</string>
+	<key>PROJECT_ID</key>
+	<string>dailyaww-927af</string>
+	<key>STORAGE_BUCKET</key>
+	<string>dailyaww-927af.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:315673900552:ios:1b3a92d5c8a026770a03bd</string>
+	<key>DATABASE_URL</key>
+	<string>https://dailyaww-927af.firebaseio.com</string>
+</dict>
+</plist>

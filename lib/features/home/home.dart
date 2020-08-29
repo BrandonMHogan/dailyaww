@@ -1,3 +1,4 @@
+import 'package:dailyaww/common/routes.dart';
 import 'package:dailyaww/common/theme.dart';
 import 'package:dailyaww/features/content_lists/fresh_list.dart';
 import 'package:dailyaww/features/content_lists/saved_list.dart';
@@ -22,6 +23,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         break;
       case 2:
         // settings
+        Routes.toSettings(context);
         break;
       case 3:
         // refresh
